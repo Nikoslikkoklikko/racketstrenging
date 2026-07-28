@@ -33,7 +33,6 @@
     position: relative;
     width: 100%;
     max-width: 620px;
-    aspect-ratio: 210 / 297;
     background: var(--paper);
     color: var(--ink);
     box-shadow: 0 30px 60px -20px rgba(20, 24, 26, 0.45);
@@ -42,33 +41,39 @@
     flex-direction: column;
   }
 
-  /* header: strung header band */
+  /* header: photo hero */
   .header{
     position: relative;
-    padding: 42px 40px 30px;
+    min-height: 300px;
+    padding: 42px 40px 26px;
     overflow: hidden;
-    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image:
+      linear-gradient(180deg, rgba(20,24,26,0.15) 0%, rgba(20,24,26,0.55) 62%, rgba(20,24,26,0.86) 100%),
+      url("photos/tennis-action.jpeg");
+    background-size: cover;
+    background-position: center 30%;
   }
 
-  .header::before,
-  .header::after{
+  .header::before{
     content: "";
     position: absolute;
     inset: 0;
-    opacity: 0.16;
+    opacity: 0.10;
+    mix-blend-mode: overlay;
     background-image: repeating-linear-gradient(
       90deg,
-      var(--court) 0px,
-      var(--court) 1.5px,
+      var(--paper) 0px,
+      var(--paper) 1.5px,
       transparent 1.5px,
       transparent 17px
-    );
-  }
-  .header::after{
-    background-image: repeating-linear-gradient(
+    ),
+    repeating-linear-gradient(
       0deg,
-      var(--court) 0px,
-      var(--court) 1.5px,
+      var(--paper) 0px,
+      var(--paper) 1.5px,
       transparent 1.5px,
       transparent 17px
     );
@@ -79,7 +84,7 @@
     font-size: 12.5px;
     font-weight: 700;
     letter-spacing: 0.28em;
-    color: var(--court);
+    color: var(--accent);
     text-transform: uppercase;
   }
 
@@ -94,23 +99,24 @@
     letter-spacing: 0.01em;
     text-transform: uppercase;
     text-wrap: balance;
+    color: var(--paper);
   }
 
   .subhead{
     position: relative;
     margin: 14px 0 0;
-    max-width: 30ch;
+    max-width: 32ch;
     font-size: 16px;
     line-height: 1.45;
-    color: var(--muted);
+    color: rgba(241, 243, 236, 0.82);
   }
 
   /* stats */
   .stats{
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
     align-items: stretch;
-    padding: 8px 40px 30px;
+    padding: 26px 40px 26px;
   }
 
   .stat{
@@ -124,35 +130,60 @@
   .stat-number{
     display: flex;
     align-items: baseline;
-    gap: 6px;
+    gap: 5px;
     font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
     font-variant-numeric: tabular-nums;
     font-weight: 700;
-    font-size: 52px;
+    font-size: 40px;
     line-height: 1;
     color: var(--court);
   }
 
   .stat-number span{
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.04em;
   }
 
   .stat-label{
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--ink);
-    max-width: 16ch;
+    max-width: 13ch;
   }
 
   .stat-divider{
     width: 0;
     border-left: 2px dashed rgba(20, 24, 26, 0.25);
-    margin: 4px 28px;
+    margin: 4px 18px;
   }
+
+  /* photo duo */
+  .gallery{
+    display: flex;
+    gap: 12px;
+    margin: 0 40px 28px;
+  }
+
+  .gallery figure{
+    flex: 1;
+    margin: 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 2px solid var(--ink);
+  }
+
+  .gallery img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery figure:first-child img{ object-position: 35% 40%; }
+  .gallery figure:last-child img{ object-position: 55% 30%; }
 
   /* pricing */
   .pricing{
@@ -291,9 +322,11 @@
 
   @media (max-width: 420px){
     .headline{ font-size: 48px; }
-    .stats{ grid-template-columns: 1fr; gap: 18px; padding-bottom: 24px; }
+    .stats{ grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding-left: 26px; padding-right: 26px; }
     .stat-divider{ display: none; }
+    .stat-label{ max-width: none; }
     .header, .pricing, .footer{ padding-left: 26px; padding-right: 26px; }
+    .gallery{ margin-left: 26px; margin-right: 26px; }
   }
 </style>
 </head>
@@ -308,6 +341,11 @@
 
   <div class="stats">
     <div class="stat">
+      <div class="stat-number">10+ <span>ÅR</span></div>
+      <div class="stat-label">Spilt tennis</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
       <div class="stat-number">3 <span>ÅR</span></div>
       <div class="stat-label">Erfaring med strenging</div>
     </div>
@@ -316,6 +354,11 @@
       <div class="stat-number">1 <span>ÅR</span></div>
       <div class="stat-label">Strenging på akademi</div>
     </div>
+  </div>
+
+  <div class="gallery">
+    <figure><img src="photos/portrait-sky.jpeg" alt="Strengeren utendørs på en tennisbane"></figure>
+    <figure><img src="photos/portrait-marina.jpeg" alt="Strengeren ved havnen"></figure>
   </div>
 
   <div class="pricing">
