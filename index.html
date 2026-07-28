@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Racketstrenging</title>
+<style>
+  :root{
+    --ink: #14181a;
+    --paper: #f1f3ec;
+    --accent: #d7e639;
+    --clay: #c1512f;
+    --court: #2f4f3e;
+    --muted: #5b6259;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    background: #e4e1d4;
+  }
+
+  body{
+    display: flex;
+    justify-content: center;
+    padding: 48px 16px;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+
+  .poster{
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    aspect-ratio: 210 / 297;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 0 30px 60px -20px rgba(20, 24, 26, 0.45);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* header: strung header band */
+  .header{
+    position: relative;
+    padding: 42px 40px 30px;
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  .header::before,
+  .header::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.16;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--court) 0px,
+      var(--court) 1.5px,
+      transparent 1.5px,
+      transparent 17px
+    );
+  }
+  .header::after{
+    background-image: repeating-linear-gradient(
+      0deg,
+      var(--court) 0px,
+      var(--court) 1.5px,
+      transparent 1.5px,
+      transparent 17px
+    );
+  }
+
+  .eyebrow{
+    position: relative;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    color: var(--court);
+    text-transform: uppercase;
+  }
+
+  .headline{
+    position: relative;
+    margin: 10px 0 0;
+    font-family: "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif;
+    font-stretch: condensed;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .subhead{
+    position: relative;
+    margin: 14px 0 0;
+    max-width: 30ch;
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  /* stats */
+  .stats{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    padding: 8px 40px 30px;
+  }
+
+  .stat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 0;
+  }
+
+  .stat-number{
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 1;
+    color: var(--court);
+  }
+
+  .stat-number span{
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .stat-label{
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    max-width: 16ch;
+  }
+
+  .stat-divider{
+    width: 0;
+    border-left: 2px dashed rgba(20, 24, 26, 0.25);
+    margin: 4px 28px;
+  }
+
+  /* pricing */
+  .pricing{
+    margin: 0 40px;
+    padding-top: 22px;
+    border-top: 6px solid var(--ink);
+    position: relative;
+  }
+  .pricing::before{
+    content: "";
+    position: absolute;
+    top: -9px;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--ink) 0px,
+      var(--ink) 2px,
+      transparent 2px,
+      transparent 12px
+    );
+  }
+
+  .pricing-title{
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--court);
+    margin-bottom: 14px;
+  }
+
+  .price-row{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+  }
+
+  .price-row + .price-row{
+    border-top: 1px solid rgba(20, 24, 26, 0.14);
+  }
+
+  .price-label strong{
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  .price-label em{
+    display: block;
+    font-style: normal;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .price-value{
+    flex: none;
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: 34px;
+    white-space: nowrap;
+  }
+
+  .price-value.house{
+    color: var(--clay);
+  }
+
+  .price-value span{
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .price-note{
+    margin-top: 14px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+
+  /* footer */
+  .footer{
+    margin-top: auto;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 26px 40px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-cta{
+    font-family: "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif;
+    font-stretch: condensed;
+    font-weight: 800;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+  }
+
+  .contact{
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .contact-item dt{
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(241, 243, 236, 0.55);
+  }
+
+  .contact-item dd{
+    margin: 0;
+    font-size: 15.5px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 420px){
+    .headline{ font-size: 48px; }
+    .stats{ grid-template-columns: 1fr; gap: 18px; padding-bottom: 24px; }
+    .stat-divider{ display: none; }
+    .header, .pricing, .footer{ padding-left: 26px; padding-right: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="header">
+    <div class="eyebrow">Tennis · Strengetjeneste</div>
+    <h1 class="headline">Racket&shy;strenging</h1>
+    <p class="subhead">Presis strenging av tennisracketer, gjort for hånd med jevn spenn hver gang.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">3 <span>ÅR</span></div>
+      <div class="stat-label">Erfaring med strenging</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-number">1 <span>ÅR</span></div>
+      <div class="stat-label">Strenging på akademi</div>
+    </div>
+  </div>
+
+  <div class="pricing">
+    <div class="pricing-title">Priser per racket</div>
+
+    <div class="price-row">
+      <div class="price-label">
+        <strong>Med egen streng</strong>
+        <em>Du tar med strengen selv</em>
+      </div>
+      <div class="price-value">200 <span>KR</span></div>
+    </div>
+
+    <div class="price-row">
+      <div class="price-label">
+        <strong>Streng inkludert</strong>
+        <em>Uten egen streng</em>
+      </div>
+      <div class="price-value house">350 <span>KR</span></div>
+    </div>
+
+    <p class="price-note">Prisen gjelder per racket.</p>
+  </div>
+
+  <div class="footer">
+    <div class="footer-cta">Ta kontakt for å bestille strenging</div>
+    <dl class="contact">
+      <div class="contact-item">
+        <dt>E-post</dt>
+        <dd>nikolaitingstad@gmail.com</dd>
+      </div>
+      <div class="contact-item">
+        <dt>Telefon</dt>
+        <dd>468 93 385</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+</body>
+</html>
