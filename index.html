@@ -160,31 +160,6 @@
     margin: 4px 18px;
   }
 
-  /* photo duo */
-  .gallery{
-    display: flex;
-    gap: 12px;
-    margin: 0 40px 28px;
-  }
-
-  .gallery figure{
-    flex: 1;
-    margin: 0;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    border: 2px solid var(--ink);
-  }
-
-  .gallery img{
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .gallery figure:first-child img{ object-position: 35% 40%; }
-  .gallery figure:last-child img{ object-position: 55% 30%; }
-
   /* pricing */
   .pricing{
     margin: 0 40px;
@@ -326,7 +301,6 @@
     .stat-divider{ display: none; }
     .stat-label{ max-width: none; }
     .header, .pricing, .footer{ padding-left: 26px; padding-right: 26px; }
-    .gallery{ margin-left: 26px; margin-right: 26px; }
   }
 </style>
 </head>
@@ -354,11 +328,6 @@
       <div class="stat-number">1 <span>ÅR</span></div>
       <div class="stat-label">Strenging på akademi</div>
     </div>
-  </div>
-
-  <div class="gallery">
-    <figure><img src="photos/portrait-sky.jpeg" alt="Strengeren utendørs på en tennisbane"></figure>
-    <figure><img src="photos/portrait-marina.jpeg" alt="Strengeren ved havnen"></figure>
   </div>
 
   <div class="pricing">
